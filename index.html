@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Refino — MU Dark Epoch</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <div>
+                <h1>Calculadora de Refino — MU Dark Epoch</h1>
+            </div>
+
+            <!-- Engrenagem canto superior direito -->
+            <button id="btn-settings" class="icon-btn" title="Configurações">
+                <span class="icon">⚙️</span>
+            </button>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="aprimorar">Aprimorar</button>
+            <button class="tab-btn" data-tab="evolucao">Evolução de equipamento</button>
+            <button class="tab-btn" data-tab="opcao">Melhoria de opção</button>
+        </nav>
+
+        <!-- ABA: APRIMORAR -->
+        <section class="tab-content active" id="tab-aprimorar">
+            <div class="grid single">
+                <div class="card">
+                    <div class="card-head">
+                        <h2>Selecione o quanto deseja refinar</h2>
+                        <div class="actions">
+                            <button id="btn-aplicar-atual" class="btn">Aplicar “Atual” para todos</button>
+                            <button id="btn-aplicar-desejado" class="btn">Aplicar “Desejado” para todos</button>
+                            <button id="btn-limpar-tudo" class="btn danger">Limpar tudo</button>
+                        </div>
+
+                    </div>
+
+                    <div class="bulk-row">
+                        <div>
+                            <label for="bulk-atual">Atual (todos)</label>
+                            <select id="bulk-atual"></select>
+                        </div>
+                        <div>
+                            <label for="bulk-desejado">Desejado (todos)</label>
+                            <select id="bulk-desejado"></select>
+                        </div>
+                    </div>
+
+                    <div id="set-list" class="set-list"></div>
+
+
+                    <div class="owned-box">
+                        <div class="owned-title">Você já tem (quantidade)</div>
+
+                        <div class="owned-grid">
+                            <div class="owned-item">
+                                <img class="jewel-icon sm" src="./imgs/bencao.png" alt="Jóia da Benção" />
+                                <input id="owned-bencao" type="number" min="0" step="1" value="0" />
+                            </div>
+
+                            <div class="owned-item">
+                                <img class="jewel-icon sm" src="./imgs/alma.png" alt="Jóia da Alma" />
+                                <input id="owned-alma" type="number" min="0" step="1" value="0" />
+                            </div>
+
+                            <div class="owned-item">
+                                <img class="jewel-icon sm" src="./imgs/luar.png" alt="Jóia do Luar" />
+                                <input id="owned-luar" type="number" min="0" step="1" value="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results">
+                        <h3>Totais</h3>
+
+                        <div class="totals-grid">
+                            <div class="total-box">
+                                <div class="total-head">
+                                    <img class="jewel-icon" src="./imgs/bencao.png" alt="Jóia da Benção" />
+                                    <div class="label">Benção</div>
+                                </div>
+                                <div class="value" id="out-bencao">0</div>
+                            </div>
+
+                            <div class="total-box">
+                                <div class="total-head">
+                                    <img class="jewel-icon" src="./imgs/alma.png" alt="Jóia da Alma" />
+                                    <div class="label">Alma</div>
+                                </div>
+                                <div class="value" id="out-alma">0</div>
+                            </div>
+
+                            <div class="total-box">
+                                <div class="total-head">
+                                    <img class="jewel-icon" src="./imgs/luar.png" alt="Jóia do Luar" />
+                                    <div class="label">Luar</div>
+                                </div>
+                                <div class="value" id="out-luar">0</div>
+                            </div>
+                        </div>
+
+                        <!-- Resumo separado (fora do grid de Totais) -->
+                        <div class="cost-box purchase-box big-summary">
+                            <div class="label center">Resumo</div>
+
+                            <div class="purchase-summary">
+                                <div class="sum-row">
+                                    <span>Custo total</span>
+                                    <strong id="out-total-all">0</strong>
+                                </div>
+
+                                <div class="sum-row muted">
+                                    <span>Você já tem</span>
+                                    <strong id="out-discount">0</strong>
+                                </div>
+
+                                <div class="sum-row final">
+                                    <span>Falta comprar</span>
+
+                                    <div class="purchase-line center-line">
+                                        <img src="./imgs/granadas.png" alt="Granadas" class="currency-icon" />
+                                        <div class="value big" id="out-custo">0</div>
+                                        <span class="currency-label">granadas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="breakdown-title">Detalhamento</div>
+                            <div class="breakdown" id="out-breakdown"></div>
+                            <div class="breakdown" id="out-breakdown-now"></div>
+                        </div>
+
+
+
+                        <div class="warn" id="out-warn" hidden></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA: EVOLUÇÃO -->
+        <section class="tab-content" id="tab-evolucao">
+            <div class="card">
+                <h2>Evolução de equipamento</h2>
+                <p class="hint">
+                    Placeholder por enquanto. Quando você me passar as regras/itens consumidos, a gente replica o mesmo
+                    padrão do “Aprimorar”.
+                </p>
+            </div>
+        </section>
+
+        <!-- ABA: OPÇÃO -->
+        <section class="tab-content" id="tab-opcao">
+            <div class="card">
+                <h2>Melhoria de opção</h2>
+                <p class="hint">
+                    Placeholder por enquanto. Quando você me passar as regras/itens consumidos, a gente implementa
+                    igualzinho.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL DE CONFIGURAÇÕES -->
+    <div id="settings-overlay" class="overlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+            <div class="modal-head">
+                <h2 id="settings-title">Configurações</h2>
+                <button id="btn-close-settings" class="icon-btn" title="Fechar">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-inner">
+                    <h3>Configuração de custos</h3>
+
+                    <div class="form-row">
+                        <label for="preco-bencao">Preço da Jóia da Benção (granadas)</label>
+                        <input id="preco-bencao" type="number" min="0" step="1" value="0" />
+                        <small class="hint">Benção é dropável → você define o valor que quer usar no cálculo.</small>
+                    </div>
+
+                    <div class="form-row two">
+                        <div>
+                            <label for="preco-alma">Preço da Jóia da Alma (granadas)</label>
+                            <input id="preco-alma" type="number" min="0" step="1" value="150" />
+                        </div>
+                        <div>
+                            <label for="preco-luar">Preço da Jóia do Luar (granadas)</label>
+                            <input id="preco-luar" type="number" min="0" step="1" value="500" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal-actions">
+                        <button id="btn-reset" class="btn danger">Resetar para padrão</button>
+                        <button id="btn-close-settings-2" class="btn">Fechar</button>
+                    </div>
+
+                    <p class="hint" style="margin-top:10px;">
+                        As configurações e o seu set ficam salvos automaticamente neste navegador.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
